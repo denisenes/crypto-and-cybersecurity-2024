@@ -14,7 +14,7 @@ randomBytes :: BS.ByteString
 randomBytes = BS.pack (take 10000 randNums)
 
 random0or1  :: BS.ByteString
-random0or1  = BS.pack (map (\x -> if even x then 1 else 0) (take 10000 randNums))
+random0or1  = BS.pack (map (\x -> if even x then 49 else 48) (take 10000 randNums))
 
 main :: IO ()
 main = do
