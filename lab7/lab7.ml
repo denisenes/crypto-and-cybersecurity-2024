@@ -38,16 +38,19 @@ let log_fast y a p =
     | [] -> "\n" | [(_, e)] -> Printf.sprintf "%d" e
     | (_, e)::es -> (Printf.sprintf "%d" e) ^ ", " ^ small_as_string es
   in
+
   let m = int_of_float (sqrt @@ float_of_int p) + 1 in
   let k = m + 1 in
   assert (m * k > p);
+
   let rec gen_small acc = function
   | i when i = m -> []
   | i            -> (i, acc) :: gen_small ((acc <*> a) mod p) (i + 1)
-  in
-  let smalls = gen_small y 0 in
+  in let smalls = gen_small y 0 in
+
   print_string "Small steps: ";
   smalls |> small_as_string |> print_endline;
+
   let a_m = pow_fast a m p in
   let rec solve acc = function
   | i when i = k + 1 -> None
@@ -57,8 +60,7 @@ let log_fast y a p =
     match List.find_opt (fun (j, small_step) -> big_step = small_step) smalls with
     | None -> solve ((acc <*> a_m) mod p) (i + 1)
     | Some (jj, ss) -> Some ((i <*> m) - jj)
-  in
-  solve a_m 1
+  in solve a_m 1
 
 let log_slow y a p =
   Printf.printf "Slow solution for %d^x = %d mod %d\n" a y p;
