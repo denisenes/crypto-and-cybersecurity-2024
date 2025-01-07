@@ -57,6 +57,7 @@ def main():
     t.add_column('Public key', pkeys)
     print(t)
 
+    # Generate and print computed Z values
     t = PrettyTable(['Z_ij', 'Z_ji'])
     for (i, j) in itertools.combinations(abonents, 2):
         z = lambda skey, pkey: fpow(pkey, skey, p) 
